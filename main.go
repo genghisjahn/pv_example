@@ -16,6 +16,10 @@ type greeter interface {
 	Greet() string
 }
 
+type server interface {
+	TakeOrder([]string)
+}
+
 func main() {
 	p1 := person{"Jon", 41}
 	a1 := animal{"Tumnus", 8}
@@ -24,6 +28,16 @@ func main() {
 
 	doGreet(&a1)
 	doGreet(&p1)
+	/*
+		doGreet(p1)
+
+		The above won't compile.  You'll get:
+		cannot use p1 (type person) as type greeter in argument to doGreet: person does not implement greeter (Greet method has pointer receiver)
+
+	*/
+
+	doServe(&p1)
+	//doServe(p1) doesn't work, explain why
 }
 
 func (a *animal) Greet() string {
@@ -31,29 +45,27 @@ func (a *animal) Greet() string {
 }
 
 func (p *person) Greet() string {
-	return fmt.Sprintf("I'm %v and I'm %v years old.%T\n", p.name, p.age, p)
+	return fmt.Sprintf("I'm %v and I'm %v years old.", p.name, p.age)
 
 }
 
-func (p *person) Greet1() {
-	fmt.Printf("I'm %v and I'm %v years old.%T\n", p.name, p.age, p)
-}
-
-func (p person) Greet2() {
-	fmt.Printf("I'm %v and I'm still %v, my birthday is a ways off.%T\n", p.name, p.age, p)
+func (p *person) TakeOrder(items []string) {
+	fmt.Println("I already forgot the order.")
 }
 
 func personstuffV(p person) {
-	p.Greet1()
-	p.Greet2()
+	fmt.Println(p.Greet())
 }
 
 func personstuffP(p *person) {
-	p.Greet1()
-	p.Greet2()
+	fmt.Println(p.Greet())
 }
 
 func doGreet(g greeter) {
-	fmt.Println(g.Greet(), fmt.Sprintf("%T", g))
+	fmt.Println(g.Greet())
+}
 
+func doServe(s server) {
+	items := []string{"Fries", "Icecream"}
+	s.TakeOrder(items)
 }
