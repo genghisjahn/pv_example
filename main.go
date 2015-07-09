@@ -51,9 +51,8 @@ func (p person) Sleep() string {
 }
 
 func personV(p person) {
-	//Greet() is defined on a pointer,
-	//but we can still call it
-	//even though p is a value param.
+	//Greet() is defined on a pointer receiver,
+	//but we can still call it from a value.
 	fmt.Println("--Person Value--")
 	fmt.Printf("Name %v\nAge:%v\n", p.name, p.age)
 	fmt.Println(p.Greet())
