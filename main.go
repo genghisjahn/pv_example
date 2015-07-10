@@ -18,7 +18,9 @@ func main() {
 	p1 := person{"Jon", 41}
 
 	personV(p1)
+	fmt.Println("after personV, p1 Age:", p1.age)
 	personP(&p1)
+	fmt.Println("after personP, p1 Age:", p1.age)
 
 	doGreet(&p1)
 	/*
@@ -43,11 +45,11 @@ func main() {
 }
 
 func (p *person) Greet() string {
-	return fmt.Sprintf("I'm %v and I'm %v years old.", p.name, p.age)
+	return fmt.Sprintf("%v says, \"I'm %v and I'm %v years old.\"", p.name, p.name, p.age)
 }
 
 func (p person) Sleep() string {
-	return "zzzzz"
+	return fmt.Sprintf("%v says, \"zzzzz\"", p.name)
 }
 
 func personV(p person) {
@@ -57,7 +59,8 @@ func personV(p person) {
 	fmt.Printf("Name %v\nAge:%v\n", p.name, p.age)
 	fmt.Println(p.Greet())
 	fmt.Printf("Type: %T\n", p)
-	fmt.Printf("\n\n")
+	fmt.Printf("Changing age to :%v\n", 50)
+	p.age = 50
 }
 
 func personP(p *person) {
@@ -67,7 +70,8 @@ func personP(p *person) {
 	fmt.Printf("Name %v\nAge:%v\n", p.name, p.age)
 	fmt.Println(p.Sleep())
 	fmt.Printf("Type: %T\n", p)
-	fmt.Printf("\n\n")
+	fmt.Printf("Changing age to :%v\n", 50)
+	p.age = 50
 
 }
 
