@@ -31,6 +31,13 @@ func main() {
 
 		If a method is defined on a pointer receiver, it can only be
 		used in an interface if a pointer is passed into the interface.
+
+		if pointer, you might be changing it.
+		then you'd hvae to take the copy and pass a pointer to the copy
+		those changes would be lost.
+
+		it's not a techincal constraint, but it would be confusing
+		pointer receivers expect to make changes and the caller be ablet to see them.
 	*/
 
 	goSleep(p1)
@@ -57,6 +64,8 @@ func personV(p person) {
 	//but we can still call it from a value.
 	fmt.Println("--Person Value--")
 	fmt.Printf("Name %v\nAge:%v\n", p.name, p.age)
+	//this works because if you pass a pointer, compiler adds an & (implicltly)
+	//here you can see the call, but an interface you can't see it.
 	fmt.Println(p.Greet())
 	fmt.Printf("Type: %T\n", p)
 	fmt.Printf("Changing age to :%v\n", 50)
